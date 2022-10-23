@@ -6,6 +6,7 @@ from typing import NamedTuple
 
 class Status(Enum):
     """(str) Current status of a pokemon's condition."""
+
     HEALTHY = "healthy"
     BURN = "burned"
     SLEEP = "sleeping"
@@ -16,6 +17,7 @@ class Status(Enum):
 
 class MoveClass(Enum):
     """(str) Determines which (if any) stats are used during damage calculation."""
+
     PHYSICAL = "physical"
     SPECIAL = "special"
     STATUS = "status"
@@ -23,6 +25,7 @@ class MoveClass(Enum):
 
 class Type(Enum):
     """(str) Elemental type of a pokemon and/or its moves."""
+
     NORMAL = "normal"
     FIGHTING = "fighting"
     FLYING = "flying"
@@ -45,6 +48,7 @@ class Type(Enum):
 
 class ExperienceGroup(Enum):
     """(str) Rate at which a pokemon levels up."""
+
     SLOW = "slow"
     MEDIUM_SLOW = "medium slow"
     MEDIUM_FAST = "medium fast"
@@ -55,19 +59,21 @@ class ExperienceGroup(Enum):
 
 class Stat(Enum):
     """(str) Statistics of a pokemon."""
+
     HP = "HP"
     ATTACK = "Attack"
     DEFENSE = "Defense"
     SPECIAL_ATTACK = "SpecialAttack"
-    SPECIAL_DEFENSE = "SepcialDefense"
+    SPECIAL_DEFENSE = "SpecialDefense"
     SPEED = "Speed"
 
 
 class Subscriptable:
     """Base Class to make cohesion between dataclasses easier."""
+
     def __getitem__(self, item):
         return getattr(self, item)
-    
+
     def __setitem__(self, item, value):
         return setattr(self, item, value)
 
@@ -75,6 +81,7 @@ class Subscriptable:
 @dataclass(frozen=True)
 class BaseStats(Subscriptable):
     """(int) Base statistics used in part to calculate current stats of a pokemon."""
+
     HP: int
     Attack: int
     Defense: int
@@ -86,6 +93,7 @@ class BaseStats(Subscriptable):
 @dataclass
 class Stats(Subscriptable):
     """Statistics of a pokemon."""
+
     HP: int
     Attack: int
     Defense: int
@@ -97,34 +105,37 @@ class Stats(Subscriptable):
 @dataclass(frozen=True)
 class DynamicValues(Subscriptable):
     """
-        (int) Values (0 to 15 inclusive) used to calculate current stats of a pokemon.
-        Calculated at creation of a pokemon and do not change.
+    (int) Values (0 to 15 inclusive) used to calculate current stats of a pokemon.
+    Calculated at creation of a pokemon and do not change.
     """
-    HP: int = random.randint(0,15)
-    Attack: int = random.randint(0,15)
-    Defense: int = random.randint(0,15)
-    SpecialAttack: int = random.randint(0,15)
-    SpecialDefense: int = random.randint(0,15)
-    Speed: int = random.randint(0,15)
+
+    HP: int = random.randint(0, 15)
+    Attack: int = random.randint(0, 15)
+    Defense: int = random.randint(0, 15)
+    SpecialAttack: int = random.randint(0, 15)
+    SpecialDefense: int = random.randint(0, 15)
+    Speed: int = random.randint(0, 15)
 
 
 @dataclass(frozen=True)
 class IndividualValues(Subscriptable):
     """
-        (int) Values (0 to 31 inclusive) used to calculate current stats of a pokemon.
-        Calculated at creation of a pokemon and do not change (without use of certain special items).
+    (int) Values (0 to 31 inclusive) used to calculate current stats of a pokemon.
+    Calculated at creation of a pokemon and do not change (without use of special items).
     """
-    HP: int = random.randint(0,31)
-    Attack: int = random.randint(0,31)
-    Defense: int = random.randint(0,31)
-    SpecialAttack: int = random.randint(0,31)
-    SpecialDefense: int = random.randint(0,31)
-    Speed: int = random.randint(0,31)
+
+    HP: int = random.randint(0, 31)
+    Attack: int = random.randint(0, 31)
+    Defense: int = random.randint(0, 31)
+    SpecialAttack: int = random.randint(0, 31)
+    SpecialDefense: int = random.randint(0, 31)
+    Speed: int = random.randint(0, 31)
 
 
 @dataclass
 class EffortValues(Subscriptable):
     """(int) Values gained through experience/items that affect stat growth."""
+
     HP: int = 0
     Attack: int = 0
     Defense: int = 0
@@ -135,6 +146,7 @@ class EffortValues(Subscriptable):
 
 class Types(NamedTuple):
     """(NamedTuple) Elemental type(s) of a pokemon. May only have type_a."""
+
     type_a: Type
     type_b: Type
 
