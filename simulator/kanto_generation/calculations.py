@@ -1,4 +1,11 @@
-from simulator.constants import BaseStats, DynamicValues, EffortValues, ExperienceGroup, Stat, Stats
+from simulator.constants import (
+    BaseStats,
+    DynamicValues,
+    EffortValues,
+    ExperienceGroup,
+    Stat,
+    Stats,
+)
 
 
 def get_experience(experience_group: ExperienceGroup, level: int) -> int:
@@ -14,7 +21,7 @@ def get_experience(experience_group: ExperienceGroup, level: int) -> int:
         experience = 5 * pow(level, 3) / 4
 
     if experience_group == ExperienceGroup.MEDIUM_SLOW:
-        experience = ((6 / 5) * pow(level, 3) - 15 * pow(level, 2) + 100 * level - 140)
+        experience = (6 / 5) * pow(level, 3) - 15 * pow(level, 2) + 100 * level - 140
 
     if experience_group == ExperienceGroup.MEDIUM_FAST:
         experience = pow(level, 3)
@@ -23,7 +30,7 @@ def get_experience(experience_group: ExperienceGroup, level: int) -> int:
         experience = 4 * pow(level, 3) / 5
 
     if experience_group == ExperienceGroup.ERRATIC:
-        if level in range(98, 100):
+        if level in range(98, 101):
             experience = pow(level, 3) * (160 - level) / 100
         if level in range(68, 98):
             experience = pow(level, 3) * int((1911 - 10 * level) / 3) / 500
@@ -33,7 +40,7 @@ def get_experience(experience_group: ExperienceGroup, level: int) -> int:
             experience = pow(level, 3) * (100 - level) / 50
 
     if experience_group == ExperienceGroup.FLUCTUATING:
-        if level in range(36, 100):
+        if level in range(36, 101):
             experience = pow(level, 3) * (level // 2 + 32) / 50
         if level in range(15, 36):
             experience = pow(level, 3) * (level + 14) / 50
@@ -44,22 +51,27 @@ def get_experience(experience_group: ExperienceGroup, level: int) -> int:
 
 
 def calculate_stat(
-        base_stat: int, dynamic_value: int, effort_value: int, level: int, is_hp: bool = False
-    ) -> int:
+    base_stat: int,
+    dynamic_value: int,
+    effort_value: int,
+    level: int,
+    is_hp: bool = False,
+) -> int:
     """Calculate an individual stat based on its base stat, DV, and EV."""
     partial_calculation = int(
-            (
-                (base_stat + dynamic_value) * 2 + int(effort_value / 4)
-            ) * level / 100
-        )
+        ((base_stat + dynamic_value) * 2 + int(effort_value / 4)) * level / 100
+    )
     if is_hp:
         return partial_calculation + level + 10
     return partial_calculation + 5
 
 
 def calculate_stats(
-        base_stats: BaseStats, dynamic_values: DynamicValues, effort_values: EffortValues, level: int
-    ) -> Stats:
+    base_stats: BaseStats,
+    dynamic_values: DynamicValues,
+    effort_values: EffortValues,
+    level: int,
+) -> Stats:
     """Calculate stats based on a pokemon's base stats, DVs, and EVs."""
     stat_names = list(Stat)
     stats = []
@@ -67,6 +79,12 @@ def calculate_stats(
         stat = stat_name.value
         is_hp = stat_name == Stat.HP
         stats.append(
-            calculate_stat(base_stats[stat], dynamic_values[stat], effort_values[stat], level, is_hp=is_hp)
+            calculate_stat(
+                base_stats[stat],
+                dynamic_values[stat],
+                effort_values[stat],
+                level,
+                is_hp=is_hp,
+            )
         )
     return Stats(*stats)
