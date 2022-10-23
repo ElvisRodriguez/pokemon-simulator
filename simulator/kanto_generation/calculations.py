@@ -1,9 +1,7 @@
-from constants import ExperienceGroup
+from simulator.constants import BaseStats, DynamicValues, EffortValues, ExperienceGroup, Stat, Stats
 
 
-def get_experience(
-        experience_group: ExperienceGroup, level: int
-    ) -> int:
+def get_experience(experience_group: ExperienceGroup, level: int) -> int:
     """
     Get the experience at the level of a pokemon in their experience group.
     """
@@ -42,4 +40,33 @@ def get_experience(
         if level < 15:
             experience = pow(level, 3) * int(((level + 1) / 3) + 24) / 50
 
-    return experience
+    return int(experience)
+
+
+def calculate_stat(
+        base_stat: int, dynamic_value: int, effort_value: int, level: int, is_hp: bool = False
+    ) -> int:
+    """Calculate an individual stat based on its base stat, DV, and EV."""
+    partial_calculation = int(
+            (
+                (base_stat + dynamic_value) * 2 + int(effort_value / 4)
+            ) * level / 100
+        )
+    if is_hp:
+        return partial_calculation + level + 10
+    return partial_calculation + 5
+
+
+def calculate_stats(
+        base_stats: BaseStats, dynamic_values: DynamicValues, effort_values: EffortValues, level: int
+    ) -> Stats:
+    """Calculate stats based on a pokemon's base stats, DVs, and EVs."""
+    stat_names = list(Stat)
+    stats = []
+    for stat_name in stat_names:
+        stat = stat_name.value
+        is_hp = stat_name == Stat.HP
+        stats.append(
+            calculate_stat(base_stats[stat], dynamic_values[stat], effort_values[stat], level, is_hp=is_hp)
+        )
+    return Stats(*stats)
