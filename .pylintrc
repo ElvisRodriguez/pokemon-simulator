@@ -1,0 +1,15 @@
+[MESSAGES CONTROL]
+
+disable=
+    import-error,
+    invalid-name,
+    line-too-long,
+    missing-class-docstring,
+    missing-final-newline,
+    missing-function-docstring,
+    missing-module-docstring,
+    no-value-for-parameter,
+    too-many-arguments,
+    too-many-branches,
+    too-many-instance-attributes,
+    trailing-whitespace,
