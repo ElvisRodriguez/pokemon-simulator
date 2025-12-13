@@ -10,6 +10,7 @@ from simulator.constants import (
     Stats,
 )
 from simulator.kanto_generation.calculations import (
+    calculate_effort_value_given,
     calculate_stat,
     calculate_stats,
     get_experience,
@@ -53,6 +54,14 @@ class TestCalculation(TestCase):
         calculate_stat_mock.assert_any_call(0, 0, 0, 50, is_hp=False)
         for stat in Stat:
             self.assertEqual(stats[stat.value], 100)
+
+    def test_calculate_effort_value_given(self):
+        base_stats = BaseStats(70, 130, 100, 55, 80, 65)
+        stage = 2
+        self.assertEqual(
+            calculate_effort_value_given(base_stats, stage),
+            ("Attack", 2)
+        )
 
     def test_get_experience_at_level_one(self):
         self.assertEqual(0, get_experience(experience_group=None, level=1))

@@ -88,3 +88,19 @@ def calculate_stats(
             )
         )
     return Stats(*stats)
+
+
+def calculate_effort_value_given(base_stats: BaseStats, stage: int):
+    """Calculate which stat the pokemon gives effort values in.S"""
+    largest_stat = None
+    stat_names = list(Stat)
+    for stat_name in stat_names:
+        stat = stat_name.value
+        if largest_stat is None:
+            largest_stat = (stat, base_stats[stat])
+        else:
+            if largest_stat[1] < base_stats[stat]:
+                largest_stat = (stat, base_stats[stat])
+    effort_value = (largest_stat[0], stage)
+    return effort_value
+    

@@ -151,6 +151,11 @@ class Types(NamedTuple):
     type_b: Type
 
 
+class MoveAction():
+    def action(*args, **kwargs):
+        pass
+
+
 MAX_LEVEL = 100
 
 

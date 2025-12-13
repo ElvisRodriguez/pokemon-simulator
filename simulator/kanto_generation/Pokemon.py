@@ -22,17 +22,22 @@ class Pokemon:
         level: int,
         moveset: list[Technique],
         name: str,
+        stage: int,
         status: Status,
         types: Types,
     ) -> None:
         # Input Args
         self._base_stats = base_stats
         self._dynamic_values = dynamic_values
+        self.effort_value = calculations.calculate_effort_value_given(
+            base_stats, stage
+        )
         self._effort_values = effort_values
         self._experience_group = experience_group
         self._level = level
         self._moveset = moveset
         self._name = name
+        self._stage = stage
         self._status = status
         self._types = types
         # Non input Args
@@ -72,6 +77,10 @@ class Pokemon:
     @property
     def name(self) -> str:
         return self._name
+    
+    @property
+    def stage(self) -> int:
+        return self._stage
 
     @property
     def status(self) -> Status:

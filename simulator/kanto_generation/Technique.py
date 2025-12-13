@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from simulator.constants import MoveClass, Type
+from simulator.constants import MoveAction, MoveClass, Type
 
 
 @dataclass
@@ -8,6 +8,7 @@ class Technique:
     name: str
     power: int
     power_points = int
-    accuracy = float
+    accuracy = int
     move_class: MoveClass
     move_type: Type
+    move_action: MoveAction
