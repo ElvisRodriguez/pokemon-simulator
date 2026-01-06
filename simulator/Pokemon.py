@@ -1,6 +1,6 @@
 import calculations
 from Technique import Technique
-from simulator.constants import (
+from constants import (
     BaseStats,
     DynamicValues,
     EffortValues,

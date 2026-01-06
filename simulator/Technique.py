@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from simulator.constants import MoveAction, MoveClass, Type
+from constants import MoveAction, MoveClass, Type
 
 
 @dataclass

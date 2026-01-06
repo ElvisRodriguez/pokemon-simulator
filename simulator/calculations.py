@@ -1,4 +1,4 @@
-from simulator.constants import (
+from constants import (
     BaseStats,
     DynamicValues,
     EffortValues,
