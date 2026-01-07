@@ -111,6 +111,15 @@ class StatStages(Subscriptable):
     SpecialAttack: int = 0
     SpecialDefense: int = 0
     Speed: int = 0
+    Accuracy: int = 0
+
+    def reset(self):
+        self.Attack = 0
+        self.Defense = 0
+        self.SpecialAttack = 0
+        self.SpecialDefense = 0
+        self.Speed = 0
+        self.Accuracy = 0
 
 
 @dataclass(frozen=True)
@@ -168,6 +177,8 @@ class Item():
     """Held by Pokemon, may have effects in battle."""
 
     name: str
+    type: Type
+    is_held_item: bool
     effect: lambda pokemon: pokemon
 
 
@@ -177,6 +188,43 @@ class MoveAction():
 
 
 MAX_LEVEL = 100
+
+
+STAT_STAGES = {
+    -6: 25/100,
+    -5: 28/100,
+    -4: 33/100,
+    -3: 40/100,
+    -2: 50/100,
+    -1: 66/100,
+    0: 100/100,
+    1: 150/100,
+    2: 200/100,
+    3: 250/100,
+    4: 300/100,
+    5: 350/100,
+    6: 400/100,
+}
+
+
+ATTACK_ITEMS = (
+    "BLACK BELT",
+    "BLACKGLASSES",
+    "CHARCOAL",
+    "DRAGON FANG",
+    "HARD STONE",
+    "MAGNET",
+    "METAL COAT",
+    "MIRACLE SEED",
+    "MYSTIC WATER",
+    "NEVERMELTICE",
+    "PINK BOW",
+    "POISON BARB",
+    "SHARP BEAK",
+    "SILVERPOWDER",
+    "SOFT SAND",
+    "SPELL TAG",
+)
 
 
 TYPE_CHART = {

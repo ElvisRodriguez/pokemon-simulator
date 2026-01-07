@@ -1,6 +1,7 @@
 import random
 
 from constants import (
+    ATTACK_ITEMS,
     BaseStats,
     DynamicValues,
     EffortValues,
@@ -8,6 +9,7 @@ from constants import (
     MoveClass,
     Stat,
     Stats,
+    STAT_STAGES,
     TYPE_CHART,
 )
 from Pokemon import Pokemon
@@ -18,8 +20,26 @@ def calculate_damage(
         move: Technique,
         attacker: Pokemon,
         defender: Pokemon,
-        critical_hit_modifier: float,
+        critical_hit_modifier: int = 1,
     ):
+    copy_of_attacker_stat_stages = attacker.stat_stages
+    copy_of_defender_stat_stages = defender.stat_stages
+    critical = 1
+    if random.random <= (1/16 * critical_hit_modifier):
+        critical = 2
+    if critical == 2:
+        if attacker.stat_stages.Attack < 0:
+            attacker.stat_stages.Attack = 0
+        if attacker.stat_stages.SpecialAttack < 0:
+            attacker.stat_stages.SpecialAttack = 0
+        if defender.stat_stages.Defense > 0:
+            defender.stat_stages.Defense = 0
+        if defender.stat_stages.SpecialDefense > 0:
+            defender.stat_stages.SpecialDefense = 0
+    attacker.stats.Attack *= STAT_STAGES[attacker.stat_stages.Attack]
+    attacker.stats.SpecialAttack *= STAT_STAGES[attacker.stat_stages.SpecialAttack]
+    defender.stats.Defense *= STAT_STAGES[defender.stat_stages.Defense]
+    defender.stats.SpecialDefense *= STAT_STAGES[defender.stat_stages.SpecialDefense]
     if move.move_class == MoveClass.PHYSICAL:
         numerator = (
             (2 * attacker.level) * 
@@ -34,9 +54,8 @@ def calculate_damage(
         )
     denominator = 50
     item = 1
-    critical = 1
-    if random.random <= (1/16 * critical_hit_modifier):
-        critical = 2
+    if attacker.item.name in ATTACK_ITEMS and attacker.item.type == move.move_type:
+        item = 1.1
     #(TODO): Implement for triple kick.
     triple_kick = 1
     #(TODO): Implement for weather effects.
@@ -54,8 +73,14 @@ def calculate_damage(
     _random = random.randint(217, 255) / 255
     #(TODO): Implement for pursuit, stomp, gust/twister, earthquake/magnitude
     double_damage = 1
-    damage = ((numerator/denominator) * item * critical + 2) * triple_kick * weather * badge * stab * effectiveness * move_mod * _random * double_damage
+    damage = (
+        ((numerator / denominator) * item * critical + 2) *
+        triple_kick * weather * badge * stab *
+        effectiveness * move_mod * _random * double_damage
+    )
     defender.stats.HP -= damage
+    attacker.stat_stages = copy_of_attacker_stat_stages
+    defender.stat_stages = copy_of_defender_stat_stages
 
 
 def get_experience(experience_group: ExperienceGroup, level: int) -> int:
