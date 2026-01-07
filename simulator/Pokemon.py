@@ -5,8 +5,10 @@ from constants import (
     DynamicValues,
     EffortValues,
     ExperienceGroup,
+    Item,
     MAX_LEVEL,
     Stat,
+    StatStages,
     Status,
     Types,
 )
@@ -19,10 +21,12 @@ class Pokemon:
         dynamic_values: DynamicValues,
         effort_values: EffortValues,
         experience_group: ExperienceGroup,
+        item: Item,
         level: int,
         moveset: list[Technique],
         name: str,
         stage: int,
+        stat_stages: StatStages,
         status: Status,
         types: Types,
     ) -> None:
@@ -34,10 +38,12 @@ class Pokemon:
         )
         self._effort_values = effort_values
         self._experience_group = experience_group
+        self._item = item
         self._level = level
         self._moveset = moveset
         self._name = name
         self._stage = stage
+        self._stat_stages = stat_stages
         self._status = status
         self._types = types
         # Non input Args
@@ -65,6 +71,10 @@ class Pokemon:
     @property
     def experience_group(self) -> ExperienceGroup:
         return self._experience_group
+    
+    @property
+    def item(self) -> Item:
+        return self._item
 
     @property
     def level(self) -> int:
@@ -81,6 +91,10 @@ class Pokemon:
     @property
     def stage(self) -> int:
         return self._stage
+    
+    @property
+    def stat_stages(self) -> StatStages:
+        return self._stat_stages
 
     @property
     def status(self) -> Status:
@@ -115,3 +129,7 @@ class Pokemon:
     @property
     def stats(self):
         return self._stats
+
+
+if __name__ == "__main__":
+    pass
