@@ -1,11 +1,61 @@
+import random
+
 from constants import (
     BaseStats,
     DynamicValues,
     EffortValues,
     ExperienceGroup,
+    MoveClass,
     Stat,
     Stats,
+    TYPE_CHART,
 )
+from Pokemon import Pokemon
+from Technique import Technique
+
+
+def calculate_damage(
+        move: Technique,
+        attacker: Pokemon,
+        defender: Pokemon,
+        critical_hit_modifier: float,
+    ):
+    if move.move_class == MoveClass.PHYSICAL:
+        numerator = (
+            (2 * attacker.level) * 
+            move.power * 
+            attacker.stats.Attack / defender.stats.Defense
+        )
+    elif move.move_class == MoveClass.SPECIAL:
+        numerator = (
+            (2 * attacker.level / 5 + 2) * 
+            move.power * 
+            attacker.stats.SpecialAttack / defender.stats.SpecialDefense
+        )
+    denominator = 50
+    item = 1
+    critical = 1
+    if random.random <= (1/16 * critical_hit_modifier):
+        critical = 2
+    #(TODO): Implement for triple kick.
+    triple_kick = 1
+    #(TODO): Implement for weather effects.
+    weather = 1
+    #(TODO): Implement badge boosts
+    badge = 1
+    stab = 1
+    if move.move_type == attacker.types.type_a or move.move_type == attacker.types.type_b:
+        stab = 1.5
+    first = TYPE_CHART[move.move_type, defender.types.type_a]
+    second = TYPE_CHART[move.move_type, defender.types.type_b]
+    effectiveness = first * second
+    #(TODO): Implement for rollout, fury cutter, and rage.
+    move_mod = 1
+    _random = random.randint(217, 255) / 255
+    #(TODO): Implement for pursuit, stomp, gust/twister, earthquake/magnitude
+    double_damage = 1
+    damage = ((numerator/denominator) * item * critical + 2) * triple_kick * weather * badge * stab * effectiveness * move_mod * _random * double_damage
+    defender.stats.HP -= damage
 
 
 def get_experience(experience_group: ExperienceGroup, level: int) -> int:
