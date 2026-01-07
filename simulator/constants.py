@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from enum import Enum
 import random
-from typing import NamedTuple
 
 
 class Status(Enum):
     """(str) Current status of a pokemon's condition."""
 
     HEALTHY = "healthy"
+    FAINTED = "fainted"
     BURN = "burned"
     SLEEP = "sleeping"
     POISON = "poisoned"
@@ -90,7 +90,7 @@ class BaseStats(Subscriptable):
     Speed: int
 
 
-@dataclass
+@dataclass(frozen=True)
 class Stats(Subscriptable):
     """Statistics of a pokemon."""
 
@@ -100,6 +100,17 @@ class Stats(Subscriptable):
     SpecialAttack: int
     SpecialDefense: int
     Speed: int
+
+
+@dataclass
+class StatStages(Subscriptable):
+    """(int) Stages (from 6 to -6) of stats during battle"""
+
+    Attack: int = 0
+    Defense: int = 0
+    SpecialAttack: int = 0
+    SpecialDefense: int = 0
+    Speed: int = 0
 
 
 @dataclass(frozen=True)
@@ -144,11 +155,20 @@ class EffortValues(Subscriptable):
     Speed: int = 0
 
 
-class Types(NamedTuple):
-    """(NamedTuple) Elemental type(s) of a pokemon. May only have type_a."""
+@dataclass
+class Types():
+    """(Type) Elemental type(s) of a pokemon. May only have type_a."""
 
     type_a: Type
     type_b: Type
+
+
+@dataclass
+class Item():
+    """Held by Pokemon, may have effects in battle."""
+
+    name: str
+    effect: lambda pokemon: pokemon
 
 
 class MoveAction():
@@ -484,4 +504,23 @@ TYPE_CHART = {
     (Type.FAIRY, Type.DRAGON): 2,
     (Type.FAIRY, Type.DARK): 2,
     (Type.FAIRY, Type.FAIRY): 1,
+    # For monotype pokemon
+    (Type.NORMAL, None): 1,
+    (Type.FIGHTING, None): 1,
+    (Type.FLYING, None): 1,
+    (Type.POISON, None): 1,
+    (Type.GROUND, None): 1,
+    (Type.ROCK, None): 1,
+    (Type.BUG, None): 1,
+    (Type.GHOST, None): 1,
+    (Type.STEEL, None): 1,
+    (Type.FIRE, None): 1,
+    (Type.WATER, None): 1,
+    (Type.GRASS, None): 1,
+    (Type.ELECTRIC, None): 1,
+    (Type.PSYCHIC, None): 1,
+    (Type.ICE, None): 1,
+    (Type.DRAGON, None): 1,
+    (Type.DARK, None): 1,
+    (Type.FAIRY, None): 1,
 }
