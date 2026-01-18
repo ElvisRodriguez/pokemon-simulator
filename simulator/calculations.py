@@ -10,10 +10,10 @@ from constants import (
     Stat,
     Stats,
     STAT_STAGES,
+    Technique,
     TYPE_CHART,
 )
 from Pokemon import Pokemon
-from Technique import Technique
 
 
 def calculate_damage(
@@ -165,7 +165,9 @@ def calculate_stats(
     return Stats(*stats)
 
 
-def calculate_effort_value_given(base_stats: BaseStats, stage: int):
+def calculate_effort_value_given(
+        base_stats: BaseStats, stage: int
+    ) -> tuple:
     """Calculate which stat the pokemon gives effort values in.S"""
     largest_stat = None
     stat_names = list(Stat)

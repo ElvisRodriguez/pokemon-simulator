@@ -68,6 +68,14 @@ class Stat(Enum):
     SPEED = "Speed"
 
 
+class Gender(Enum):
+    """(str) Gender of the pokemon, can be genderless."""
+
+    MALE = "male"
+    FEMALE = "female"
+    GENDERLESS = "genderless"
+
+
 class Subscriptable:
     """Base Class to make cohesion between dataclasses easier."""
 
@@ -185,6 +193,19 @@ class Item():
 class MoveAction():
     def action(*args, **kwargs):
         pass
+
+
+@dataclass
+class Technique:
+    """Attributes of a pokemon's move."""
+    name: str
+    power: int
+    accuracy: int
+    power_points = int
+    accuracy = int
+    move_class: MoveClass
+    move_type: Type
+    move_action: MoveAction
 
 
 MAX_LEVEL = 100

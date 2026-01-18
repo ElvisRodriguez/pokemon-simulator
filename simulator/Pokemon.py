@@ -1,15 +1,16 @@
 import calculations
-from Technique import Technique
 from constants import (
     BaseStats,
     DynamicValues,
     EffortValues,
     ExperienceGroup,
     Item,
+    Gender,
     MAX_LEVEL,
     Stat,
     StatStages,
     Status,
+    Technique,
     Types,
 )
 
@@ -23,7 +24,9 @@ class Pokemon:
         experience_group: ExperienceGroup,
         item: Item,
         level: int,
-        moveset: list[Technique],
+        gender: Gender,
+        moves: list[Technique],
+        moveset: dict[int, Technique],
         name: str,
         stage: int,
         stat_stages: StatStages,
@@ -33,13 +36,15 @@ class Pokemon:
         # Input Args
         self._base_stats = base_stats
         self._dynamic_values = dynamic_values
-        self.effort_value = calculations.calculate_effort_value_given(
+        self._effort_value_given = calculations.calculate_effort_value_given(
             base_stats, stage
         )
         self._effort_values = effort_values
         self._experience_group = experience_group
         self._item = item
+        self._gender = gender
         self._level = level
+        self._moves = moves
         self._moveset = moveset
         self._name = name
         self._stage = stage
@@ -51,6 +56,17 @@ class Pokemon:
         self._stats = calculations.calculate_stats(
             base_stats, dynamic_values, effort_values, level
         )
+
+    def __eq__(self, pokemon):
+        if isinstance(pokemon, self.__class__):
+            if (
+                self._name == pokemon.name and
+                self._stage == pokemon.stage and
+                self._types.type_a == pokemon.types.type_a and
+                self._types.type_b == pokemon.types.type_b
+            ):
+                return True
+            return False
 
     @property
     def base_stats(self) -> BaseStats:
@@ -67,6 +83,10 @@ class Pokemon:
     @effort_values.setter
     def effort_values(self, stat: Stat, effort_value_points: int) -> None:
         self._effort_values[stat.name] += effort_value_points
+    
+    @property
+    def effort_value_given(self) -> tuple:
+        return self._effort_value_given
 
     @property
     def experience_group(self) -> ExperienceGroup:
@@ -75,14 +95,18 @@ class Pokemon:
     @property
     def item(self) -> Item:
         return self._item
+    
+    @property
+    def gender(self) -> Gender:
+        return self._gender
 
     @property
     def level(self) -> int:
         return self._level
 
     @property
-    def moveset(self) -> list[Technique]:
-        return self._moveset
+    def moves(self) -> list[Technique]:
+        return self._moves
 
     @property
     def name(self) -> str:

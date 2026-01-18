@@ -4,10 +4,10 @@ from calculations import calculate_damage
 from constants import (
     MoveAction,
     MoveClass,
+    Technique,
     Type,
 )
 from Pokemon import Pokemon
-from Technique import Technique
 
 
 AEROBLAST = Technique(
@@ -19,7 +19,7 @@ AEROBLAST = Technique(
     move_action=MoveAction,
 )
 def aeroblast(AEROBLAST: Technique, attacker: Pokemon, defender: Pokemon):
-    if random.random < STEEL_WING.accuracy / 100:
+    if random.random < AEROBLAST.accuracy / 100:
         critical_hit_modifier = 2
         calculate_damage(AEROBLAST, attacker, defender, critical_hit_modifier)
 AEROBLAST.move_action = aeroblast
