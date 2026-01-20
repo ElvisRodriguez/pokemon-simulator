@@ -13,6 +13,8 @@ class Status(Enum):
     POISON = "poisoned"
     FROZEN = "frozen"
     PARALYSIS = "paralyzed"
+    LOVE = "love"
+    CONFUSION = "confusion"
 
 
 class MoveClass(Enum):
@@ -201,8 +203,8 @@ class Technique:
     name: str
     power: int
     accuracy: int
-    power_points = int
-    accuracy = int
+    power_points: int
+    accuracy: int
     move_class: MoveClass
     move_type: Type
     move_action: MoveAction
