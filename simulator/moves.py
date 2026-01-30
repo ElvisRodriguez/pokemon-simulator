@@ -64,7 +64,7 @@ def attract(ATTRACT: Technique, attacker: Pokemon, defender: Pokemon):
          (attacker.gender == Gender.FEMALE and
          defender.gender == Gender.MALE)
     ):
-        defender.status = Status.LOVE
+        defender.status = Status.INFATUATED
 ATTRACT.move_action = attract
 
 

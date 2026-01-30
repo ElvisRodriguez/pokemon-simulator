@@ -13,7 +13,7 @@ class Status(Enum):
     POISON = "poisoned"
     FROZEN = "frozen"
     PARALYSIS = "paralyzed"
-    LOVE = "love"
+    INFATUATED = "infatuated"
     CONFUSION = "confusion"
 
 
