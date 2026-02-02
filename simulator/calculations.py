@@ -81,6 +81,7 @@ def calculate_damage(
     defender.stats.HP -= damage
     attacker.stat_stages = copy_of_attacker_stat_stages
     defender.stat_stages = copy_of_defender_stat_stages
+    return damage
 
 
 def get_experience(experience_group: ExperienceGroup, level: int) -> int:
