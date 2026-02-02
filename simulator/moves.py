@@ -12,6 +12,111 @@ from constants import (
 from Pokemon import Pokemon
 
 
+ABSORB = Technique(
+    name="Absorb",
+    power=20,
+    accuracy=100,
+    power_points=25,
+    move_class=MoveClass.SPECIAL,
+    move_type=Type.GRASS,
+    move_action=MoveAction,
+)
+def absorb(ABSORB: Technique, attacker: Pokemon, defender: Pokemon):
+    damage = calculate_damage(ABSORB, attacker, defender)
+    recoverable = damage // 2
+    if attacker.stats.HP + recoverable > attacker.max_hp:
+        attacker.stats.HP = attacker.max_hp
+    else:
+        attacker.stats.HP += recoverable
+ABSORB.move_action = absorb
+
+
+ACID = Technique(
+    name="Acid",
+    power=40,
+    accuracy=100,
+    power_points=30,
+    move_class=MoveClass.SPECIAL,
+    move_type=Type.POISON,
+    move_action=MoveAction,
+)
+def acid(ACID: Technique, attacker: Pokemon, defender: Pokemon):
+    calculate_damage(ACID, attacker, defender)
+    if random.random < 1/10:
+        if defender.stat_stages.SpecialDefense > -6:
+            defender.stat_stages.SpecialDefense -= 1
+ACID.move_action = acid
+
+
+ACID_ARMOR = Technique(
+    name="Acid Armor",
+    power=0,
+    accuracy=100,
+    power_points=20,
+    move_class=MoveClass.STATUS,
+    move_type=Type.POISON,
+    move_action=MoveAction,
+)
+def acid_armor(ACID_ARMOR: Technique, attacker: Pokemon, defender: Pokemon):
+    if attacker.stat_stages.Defense < 6:
+        attacker.stat_stages.Defense += 2
+    if attacker.stat_stages.Defense > 6:
+        attacker.stat_stages.Defense = 6
+ACID_ARMOR.move_action = acid_armor
+
+
+AGILITY = Technique(
+    name="Agility",
+    power=0,
+    accuracy=100,
+    power_points=30,
+    move_class=MoveClass.STATUS,
+    move_type=Type.PSYCHIC,
+    move_action=MoveAction,
+)
+def agility(AGILITY: Technique, attacker: Pokemon, defender: Pokemon):
+    if attacker.stat_stages.Speed < 6:
+        attacker.stat_stages.Speed += 2
+    if attacker.stat_stages.Speed > 6:
+        attacker.stat_stages.Speed = 6
+AGILITY.move_action = agility
+
+
+AMNESIA = Technique(
+    name="Amnesia",
+    power=0,
+    accuracy=100,
+    power_points=20,
+    move_class=MoveClass.STATUS,
+    move_type=Type.PSYCHIC,
+    move_action=MoveAction,
+)
+def amnesia(AMNESIA: Technique, attacker: Pokemon, defender: Pokemon):
+    if attacker.stat_stages.SpecialDefense < 6:
+        attacker.stat_stages.SpecialDefense += 2
+    if attacker.stat_stages.SpecialDefense > 6:
+        attacker.stat_stages.SpecialDefense = 6
+AMNESIA.move_action = amnesia
+
+
+AURORA_BEAM = Technique(
+    name="Aurora Beam",
+    power=65,
+    accuracy=100,
+    power_points=20,
+    move_class=MoveClass.SPECIAL,
+    move_type=Type.ICE,
+    move_action=MoveAction,
+)
+def aurora_beam(AURORA_BEAM: Technique, attacker: Pokemon, defender: Pokemon):
+    calculate_damage(AURORA_BEAM, attacker, defender)
+    if random.random < 1/10:
+        if defender.stat_stages.Attack > -6:
+            defender.stat_stages.Attack -= 1
+AURORA_BEAM.move_action = aurora_beam
+
+
+###-------------------------------Gen 2 Moves-------------------------------###
 AEROBLAST = Technique(
     name="Aeroblast",
     power=100,
