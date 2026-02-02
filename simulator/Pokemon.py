@@ -56,6 +56,7 @@ class Pokemon:
         self._stats = calculations.calculate_stats(
             base_stats, dynamic_values, effort_values, level
         )
+        self._max_hp = self._stats.HP
 
     def __eq__(self, pokemon):
         if isinstance(pokemon, self.__class__):
@@ -153,6 +154,10 @@ class Pokemon:
     @property
     def stats(self):
         return self._stats
+    
+    @property.getter
+    def max_hp(self):
+        return self._max_hp
 
 
 if __name__ == "__main__":
