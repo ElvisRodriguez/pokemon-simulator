@@ -22,6 +22,7 @@ class Pokemon:
         dynamic_values: DynamicValues,
         effort_values: EffortValues,
         experience_group: ExperienceGroup,
+        height: float,
         item: Item,
         level: int,
         gender: Gender,
@@ -32,6 +33,7 @@ class Pokemon:
         stat_stages: StatStages,
         status: Status,
         types: Types,
+        weight: float,
     ) -> None:
         # Input Args
         self._base_stats = base_stats
@@ -41,6 +43,7 @@ class Pokemon:
         )
         self._effort_values = effort_values
         self._experience_group = experience_group
+        self._height = height # in meters
         self._item = item
         self._gender = gender
         self._level = level
@@ -51,6 +54,7 @@ class Pokemon:
         self._stat_stages = stat_stages
         self._status = status
         self._types = types
+        self._weight = weight # in kilograms
         # Non input Args
         self._experience = calculations.get_experience(experience_group, level)
         self._stats = calculations.calculate_stats(
@@ -94,6 +98,10 @@ class Pokemon:
         return self._experience_group
     
     @property
+    def height(self) -> float:
+        return self._height
+    
+    @property
     def item(self) -> Item:
         return self._item
     
@@ -134,6 +142,10 @@ class Pokemon:
         return self._types
 
     @property
+    def weight(self) -> float:
+        return self._weight
+
+    @property
     def experience(self) -> int:
         return self._experience
 
@@ -155,7 +167,7 @@ class Pokemon:
     def stats(self):
         return self._stats
     
-    @property.getter
+    @property
     def max_hp(self):
         return self._max_hp
 

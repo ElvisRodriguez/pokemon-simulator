@@ -18,6 +18,7 @@ SCIZOR = Pokemon(
     dynamic_values=DynamicValues(),
     effort_values=EffortValues(),
     experience_group=ExperienceGroup.MEDIUM_FAST,
+    height=1.8,
     item=None,
     gender=Gender.MALE,
     level=50,
@@ -28,4 +29,5 @@ SCIZOR = Pokemon(
     stat_stages=StatStages,
     status=Status.HEALTHY,
     types=Types(Type.BUG, Type.STEEL),
+    weight=118.0,
 )
