@@ -1,4 +1,5 @@
 from constants import Technique
+from Pokemon import Pokemon
 
 class BattleOverworld:
     def __init__(self):
@@ -48,3 +49,7 @@ class BattleOverworld:
         if len(self.moves_used) > 0:
             return self.moves_used[-1]
         return None
+    
+    def reset_pokemon(pokemon: Pokemon):
+        pokemon.stats = pokemon._frozen_stats
+        pokemon.stat_stages.reset()

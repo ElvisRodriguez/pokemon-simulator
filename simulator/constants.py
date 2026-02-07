@@ -6,76 +6,76 @@ import random
 class Status(Enum):
     """(str) Current status of a pokemon's condition."""
 
-    HEALTHY = "healthy"
-    FAINTED = "fainted"
-    BURN = "burned"
-    SLEEP = "sleeping"
-    POISON = "poisoned"
-    FROZEN = "frozen"
-    PARALYSIS = "paralyzed"
-    INFATUATED = "infatuated"
-    CONFUSION = "confusion"
+    HEALTHY: str = "healthy"
+    FAINTED: str = "fainted"
+    BURN: str = "burned"
+    SLEEP: str = "sleeping"
+    POISON: str = "poisoned"
+    FROZEN: str = "frozen"
+    PARALYSIS: str = "paralyzed"
+    INFATUATED: str = "infatuated"
+    CONFUSION: str = "confusion"
 
 
 class MoveClass(Enum):
     """(str) Determines which (if any) stats are used during damage calculation."""
 
-    PHYSICAL = "physical"
-    SPECIAL = "special"
-    STATUS = "status"
+    PHYSICAL: str = "physical"
+    SPECIAL: str = "special"
+    STATUS: str = "status"
 
 
 class Type(Enum):
     """(str) Elemental type of a pokemon and/or its moves."""
 
-    NORMAL = "normal"
-    FIGHTING = "fighting"
-    FLYING = "flying"
-    POISON = "poison"
-    GROUND = "ground"
-    ROCK = "rock"
-    BUG = "bug"
-    GHOST = "ghost"
-    STEEL = "steel"
-    FIRE = "fire"
-    WATER = "water"
-    GRASS = "grass"
-    ELECTRIC = "electric"
-    PSYCHIC = "psychic"
-    ICE = "ice"
-    DRAGON = "dragon"
-    DARK = "dark"
-    FAIRY = "fairy"
+    NORMAL: str = "normal"
+    FIGHTING: str = "fighting"
+    FLYING: str = "flying"
+    POISON: str = "poison"
+    GROUND: str = "ground"
+    ROCK: str = "rock"
+    BUG: str = "bug"
+    GHOST: str = "ghost"
+    STEEL: str = "steel"
+    FIRE: str = "fire"
+    WATER: str = "water"
+    GRASS: str = "grass"
+    ELECTRIC: str = "electric"
+    PSYCHIC: str = "psychic"
+    ICE: str = "ice"
+    DRAGON: str = "dragon"
+    DARK: str = "dark"
+    FAIRY: str = "fairy"
 
 
 class ExperienceGroup(Enum):
     """(str) Rate at which a pokemon levels up."""
 
-    SLOW = "slow"
-    MEDIUM_SLOW = "medium slow"
-    MEDIUM_FAST = "medium fast"
-    FAST = "fast"
-    ERRATIC = "erratic"
-    FLUCTUATING = "fluctuating"
+    SLOW: str = "slow"
+    MEDIUM_SLOW: str = "medium slow"
+    MEDIUM_FAST: str = "medium fast"
+    FAST: str = "fast"
+    ERRATIC: str = "erratic"
+    FLUCTUATING: str = "fluctuating"
 
 
 class Stat(Enum):
     """(str) Statistics of a pokemon."""
 
-    HP = "HP"
-    ATTACK = "Attack"
-    DEFENSE = "Defense"
-    SPECIAL_ATTACK = "SpecialAttack"
-    SPECIAL_DEFENSE = "SpecialDefense"
-    SPEED = "Speed"
+    HP: str = "HP"
+    ATTACK: str = "Attack"
+    DEFENSE: str = "Defense"
+    SPECIAL_ATTACK: str = "SpecialAttack"
+    SPECIAL_DEFENSE: str = "SpecialDefense"
+    SPEED: str = "Speed"
 
 
 class Gender(Enum):
     """(str) Gender of the pokemon, can be genderless."""
 
-    MALE = "male"
-    FEMALE = "female"
-    GENDERLESS = "genderless"
+    MALE: str = "male"
+    FEMALE: str = "female"
+    GENDERLESS: str = "genderless"
 
 
 class Subscriptable:
@@ -210,7 +210,7 @@ class Technique:
     move_action: MoveAction
 
 
-MAX_LEVEL = 100
+MAX_LEVEL: int = 100
 
 
 STAT_STAGES = {

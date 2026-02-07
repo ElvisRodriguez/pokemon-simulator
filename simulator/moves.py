@@ -22,8 +22,8 @@ ABSORB = Technique(
     move_action=MoveAction,
 )
 def absorb(ABSORB: Technique, attacker: Pokemon, defender: Pokemon):
-    damage = calculate_damage(ABSORB, attacker, defender)
-    recoverable = damage // 2
+    damage: float = calculate_damage(ABSORB, attacker, defender)
+    recoverable: int = damage // 2
     if attacker.stats.HP + recoverable > attacker.max_hp:
         attacker.stats.HP = attacker.max_hp
     else:
@@ -128,7 +128,7 @@ AEROBLAST = Technique(
 )
 def aeroblast(AEROBLAST: Technique, attacker: Pokemon, defender: Pokemon):
     if random.random < AEROBLAST.accuracy / 100:
-        critical_hit_modifier = 2
+        critical_hit_modifier: int = 2
         calculate_damage(AEROBLAST, attacker, defender, critical_hit_modifier)
 AEROBLAST.move_action = aeroblast
 
@@ -184,7 +184,7 @@ STEEL_WING = Technique(
 )
 def steel_wing(STEEL_WING: Technique, attacker: Pokemon, defender: Pokemon):
     if random.random < STEEL_WING.accuracy / 100:
+        calculate_damage(STEEL_WING, attacker, defender)
         if random.random() <= 1/10:
             attacker.stat_stages.Defense += 1
-        calculate_damage(STEEL_WING, attacker, defender)
 STEEL_WING.move_action = steel_wing

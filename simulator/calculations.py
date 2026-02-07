@@ -9,6 +9,8 @@ from constants import (
     MoveClass,
     Stat,
     Stats,
+    StatStages,
+    Status,
     STAT_STAGES,
     Technique,
     TYPE_CHART,
@@ -22,9 +24,11 @@ def calculate_damage(
         defender: Pokemon,
         critical_hit_modifier: int = 1,
     ):
-    copy_of_attacker_stat_stages = attacker.stat_stages
-    copy_of_defender_stat_stages = defender.stat_stages
-    critical = 1
+    copy_of_attacker_stat_stages: StatStages = attacker.stat_stages
+    copy_of_defender_stat_stages: StatStages = defender.stat_stages
+    copy_of_attacker_stats: Stats = attacker.stats
+    copy_of_defender_stats: Stats = defender.stats
+    critical: float = 1.0
     if random.random <= (1/16 * critical_hit_modifier):
         critical = 2
     if critical == 2:
@@ -52,35 +56,40 @@ def calculate_damage(
             move.power * 
             attacker.stats.SpecialAttack / defender.stats.SpecialDefense
         )
-    denominator = 50
-    item = 1
+    denominator: float = 50.0
+    item: float = 1.0
     if attacker.item.name in ATTACK_ITEMS and attacker.item.type == move.move_type:
         item = 1.1
     #(TODO): Implement for triple kick.
-    triple_kick = 1
+    triple_kick: float = 1.0
     #(TODO): Implement for weather effects.
-    weather = 1
+    weather: float = 1.0
     #(TODO): Implement badge boosts
-    badge = 1
-    stab = 1
+    badge: float = 1.0
+    stab: float = 1.0
     if move.move_type == attacker.types.type_a or move.move_type == attacker.types.type_b:
         stab = 1.5
-    first = TYPE_CHART[move.move_type, defender.types.type_a]
-    second = TYPE_CHART[move.move_type, defender.types.type_b]
-    effectiveness = first * second
+    first: float = TYPE_CHART[move.move_type, defender.types.type_a]
+    second: float = TYPE_CHART[move.move_type, defender.types.type_b]
+    effectiveness: float = first * second
     #(TODO): Implement for rollout, fury cutter, and rage.
-    move_mod = 1
-    _random = random.randint(217, 255) / 255
+    move_mod: float = 1.0
+    _random: float = random.randint(217, 255) / 255
     #(TODO): Implement for pursuit, stomp, gust/twister, earthquake/magnitude
-    double_damage = 1
-    damage = (
+    double_damage: float = 1
+    damage: float = (
         ((numerator / denominator) * item * critical + 2) *
         triple_kick * weather * badge * stab *
         effectiveness * move_mod * _random * double_damage
     )
     defender.stats.HP -= damage
+    if defender.stats.HP <= 0:
+        defender.stats.HP = 0
+        defender.status = Status.FAINTED
     attacker.stat_stages = copy_of_attacker_stat_stages
     defender.stat_stages = copy_of_defender_stat_stages
+    attacker.stats = copy_of_attacker_stats
+    defender.stats = copy_of_defender_stats
     return damage
 
 

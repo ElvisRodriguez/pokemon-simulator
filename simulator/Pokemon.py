@@ -61,6 +61,7 @@ class Pokemon:
             base_stats, dynamic_values, effort_values, level
         )
         self._max_hp = self._stats.HP
+        self._frozen_stats = self._stats
 
     def __eq__(self, pokemon):
         if isinstance(pokemon, self.__class__):
