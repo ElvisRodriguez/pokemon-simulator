@@ -100,7 +100,7 @@ class BaseStats(Subscriptable):
     Speed: int
 
 
-@dataclass(frozen=True)
+@dataclass
 class Stats(Subscriptable):
     """Statistics of a pokemon."""
 
@@ -208,6 +208,8 @@ class Technique:
     move_class: MoveClass
     move_type: Type
     move_action: MoveAction
+    priority: int
+    turns: int
 
 
 MAX_LEVEL: int = 100

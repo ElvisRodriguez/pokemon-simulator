@@ -29,7 +29,7 @@ def calculate_damage(
     copy_of_attacker_stats: Stats = attacker.stats
     copy_of_defender_stats: Stats = defender.stats
     critical: float = 1.0
-    if random.random <= (1/16 * critical_hit_modifier):
+    if random.random() <= (1/16 * critical_hit_modifier):
         critical = 2
     if critical == 2:
         if attacker.stat_stages.Attack < 0:
