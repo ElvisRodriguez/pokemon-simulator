@@ -237,9 +237,48 @@ def bind(BIND: Technique, attacker: Pokemon, defender: Pokemon):
     damage: float = 0
     if random.random() < BIND.accuracy / 100:
         damage = calculate_damage(BIND, attacker, defender)
+    BIND.turns = 1
     BIND.power_points -= 1
     return damage
 BIND.move_action = bind
+
+
+BITE = Technique(
+    name="Bite",
+    power=60,
+    accuracy=100,
+    power_points=25,
+    move_class=MoveClass.PHYSICAL,
+    move_type=Type.DARK,
+    move_action=MoveAction,
+    priority=0,
+    turns=0,
+)
+def bite(BITE: Technique, attacker: Pokemon, defender: Pokemon):
+    damage = calculate_damage(BITE, attacker, defender)
+    BITE.power_points -= 1
+    return damage
+BITE.move_action = bite
+
+
+BLIZZARD = Technique(
+    name="Blizzard",
+    power=110,
+    accuracy=70,
+    power_points=5,
+    move_class=MoveClass.PHYSICAL,
+    move_type=Type.ICE,
+    move_action=MoveAction,
+    priority=0,
+    turns=0,
+)
+def blizzard(BLIZZARD: Technique, attacker: Pokemon, defender: Pokemon):
+    damage = 0
+    if random.random() < BLIZZARD.accuracy / 100:
+        damage = calculate_damage(BLIZZARD, attacker, defender)
+    BLIZZARD.power_points -= 1
+    return damage
+BLIZZARD.move_action = blizzard
 
 
 ###-------------------------------Gen 2 Moves-------------------------------###
