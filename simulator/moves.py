@@ -158,7 +158,7 @@ BARRAGE = Technique(
 )
 def barrage(BARRAGE: Technique, attacker: Pokemon, defender: Pokemon) -> None:
     damage: float = 0
-    if random.random() < 85/100:
+    if random.random() < BARRAGE.accuracy / 100:
         damage += calculate_damage(BARRAGE, attacker, defender)
         damage += calculate_damage(BARRAGE, attacker, defender)
         if random.random() < 3/8:
@@ -212,6 +212,7 @@ def bide(
     damage: float = 0
     if BIDE.turns < 2:
         BIDE.power += damage_taken
+        BIDE.turns += 1
     elif BIDE.turns == 2:
         damage = BIDE.power
         defender.HP -= BIDE.power
@@ -219,6 +220,26 @@ def bide(
         BIDE.turns = 0
     return damage
 BIDE.move_action = bide
+
+
+BIND = Technique(
+    name="Bind",
+    power=15,
+    accuracy=85,
+    power_points=20,
+    move_class=MoveClass.PHYSICAL,
+    move_type=Type.NORMAL,
+    move_action=MoveAction,
+    priority=0,
+    turns=0,
+)
+def bind(BIND: Technique, attacker: Pokemon, defender: Pokemon):
+    damage: float = 0
+    if random.random() < BIND.accuracy / 100:
+        damage = calculate_damage(BIND, attacker, defender)
+    BIND.power_points -= 1
+    return damage
+BIND.move_action = bind
 
 
 ###-------------------------------Gen 2 Moves-------------------------------###
